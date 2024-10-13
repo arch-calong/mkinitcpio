@@ -24,7 +24,7 @@ jobs:
         shell: bash
         working-directory: ${{ env.workdir }}
         run: |
-          sudo pacman -Sy base-devel git autogen asciidoc bats bats-assert lzop mkinitcpio-nfs-utils --noconfirm
+          sudo pacman -Sy base-devel git autogen asciidoc bats bats-assert lzop mkinitcpio-nfs-utils mkinitcpio-busybox  --noconfirm
       - name: Clone repos
         shell: bash
         working-directory: ${{ env.workdir }}

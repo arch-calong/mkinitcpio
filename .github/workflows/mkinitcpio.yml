@@ -31,6 +31,11 @@ jobs:
         run: |
           sed -i "s/MAKEFLAGS=\"-j2\"/MAKEFLAGS=\"-j8\"/g" /etc/makepkg.conf
           su - builder -c "git clone https://github.com/${{ github.repository }}.git -b  ${GITHUB_REF##*/} src"
+      - name: Import public gpg key
+        shell: bash
+        run: |
+          su - builder -c "gpg --recv-key 9C02FF419FECBE16"
+
       - name: Build mkinitcpio
         shell: bash
         working-directory: ${{ env.workdir }}/src

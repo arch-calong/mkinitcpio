@@ -35,6 +35,11 @@ jobs:
         shell: bash
         run: |
           su - builder -c "gpg --recv-key 9C02FF419FECBE16"
+      - name: Build
+        shell: bash
+        working-directory: ${{ env.workdir }}/src
+        run: |
+          su - builder -c "cd /builder/src && makepkg PKGBUILD"
       - name: Sign
         shell: bash
         working-directory: ${{ env.workdir }}
@@ -48,11 +53,6 @@ jobs:
                 gpg --pinentry-mode loopback --passphrase "${{ secrets.CALONG_GPG_PASSWD }}" --detach-sign ${p}
               done
           fi
-      - name: Build
-        shell: bash
-        working-directory: ${{ env.workdir }}/src
-        run: |
-          su - builder -c "cd /builder/src && makepkg PKGBUILD"
       - name: Upload packages
         uses: actions/upload-artifact@v4
         with:
